@@ -39,17 +39,17 @@ function Layout (props) {
       </div>
 
       {/* <!-- end:: Header Mobile --> */}
-      <div style={{height: 100+'%'}} className='kt-grid kt-grid--hor kt-grid--root'>
+      <div
+        style={{ height: 100 + '%' }}
+        className='kt-grid kt-grid--hor kt-grid--root'
+      >
         <div className='kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page'>
           <div
             className='kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop'
             id='kt_aside'
           >
             {/* <!-- begin:: Aside --> */}
-            <div
-              className='kt-aside__brand kt-grid__item '
-              id='kt_aside_brand'
-            >
+            <div className='kt-aside__brand kt-grid__item ' id='kt_aside_brand'>
               <div className='kt-aside__brand-logo'>
                 <Link to='/'>
                   <img alt='Logo' src={logo} style={{ width: 50 + 'px' }} />
@@ -149,9 +149,7 @@ function Layout (props) {
                   </li>
                   <li className='kt-menu__item ' aria-haspopup='true'>
                     <Link to='/employees' className='kt-menu__link '>
-                      <span className='kt-menu__link-text'>
-                        Emplesdados
-                      </span>
+                      <span className='kt-menu__link-text'>Empleados</span>
                     </Link>
                   </li>
                   <li className='kt-menu__item ' aria-haspopup='true'>
@@ -245,8 +243,8 @@ function Layout (props) {
               <div className='kt-subheader   kt-grid__item' id='kt_subheader'>
                 <div className='kt-container  kt-container--fluid '>
                   <div className='kt-subheader__main'>
-                    <h3 id='seccion_name' className='kt-subheader__title'>
-                      Empty Page{' '}
+                    <h3 id='section__name' className='kt-subheader__title'>
+                      Empty Page
                     </h3>
                     <span className='kt-subheader__separator kt-hidden' />
                   </div>
@@ -260,14 +258,15 @@ function Layout (props) {
                 <div className='kt-portlet kt-portlet--mobile'>
                   <div className='kt-portlet__head kt-portlet__head--lg'>
                     <div className='kt-portlet__head-label'>
-                      <h3 id='module-action' className='kt-portlet__head-title'>
+                      <h3
+                        id='module__action'
+                        className='kt-portlet__head-title'
+                      >
                         Basic
                       </h3>
                     </div>
                     <div className='kt-portlet__head-toolbar'>
-                      <div className='kt-portlet__head-wrapper'>
-                        <div className='kt-portlet__head-actions' />
-                      </div>
+                      <div className='kt-portlet__head-actions' />
                     </div>
                   </div>
 
@@ -285,14 +284,7 @@ function Layout (props) {
             >
               <div className='kt-container  kt-container--fluid '>
                 <div className='kt-footer__copyright'>
-                  2019&nbsp;&copy;&nbsp;
-                  <a
-                    href='http://keenthemes.com/metronic'
-                    target='_blank'
-                    className='kt-link'
-                  >
-                    CuboDARC
-                  </a>
+                  2019&nbsp;&copy;&nbsp; CuboDARC
                 </div>
               </div>
             </div>
