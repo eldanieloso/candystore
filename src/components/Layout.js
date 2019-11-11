@@ -1,0 +1,311 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+import logo from '../images/favicon.png'
+
+function Layout (props) {
+  return (
+    <React.Fragment>
+      {/* <!-- begin:: Page --> */}
+      <div
+        id='kt_header_mobile'
+        className='kt-header-mobile  kt-header-mobile--fixed '
+      >
+        <div className='kt-header-mobile__logo'>
+          <a href='/'>
+            <img alt='Logo' src={logo} />
+          </a>
+        </div>
+        <div className='kt-header-mobile__toolbar'>
+          <button
+            className='kt-header-mobile__toggler kt-header-mobile__toggler--left'
+            id='kt_aside_mobile_toggler'
+          >
+            <span />
+          </button>
+          <button
+            className='kt-header-mobile__toggler'
+            id='kt_header_mobile_toggler'
+          >
+            <span />
+          </button>
+          <button
+            className='kt-header-mobile__topbar-toggler'
+            id='kt_header_mobile_topbar_toggler'
+          >
+            <i className='flaticon-more' />
+          </button>
+        </div>
+      </div>
+
+      {/* <!-- end:: Header Mobile --> */}
+      <div style={{height: 100+'%'}} className='kt-grid kt-grid--hor kt-grid--root'>
+        <div className='kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page'>
+          <div
+            className='kt-aside  kt-aside--fixed  kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop'
+            id='kt_aside'
+          >
+            {/* <!-- begin:: Aside --> */}
+            <div
+              className='kt-aside__brand kt-grid__item '
+              id='kt_aside_brand'
+            >
+              <div className='kt-aside__brand-logo'>
+                <Link to='/'>
+                  <img alt='Logo' src={logo} style={{ width: 50 + 'px' }} />
+                </Link>
+              </div>
+              <div className='kt-aside__brand-tools'>
+                <button
+                  className='kt-aside__brand-aside-toggler'
+                  id='kt_aside_toggler'
+                >
+                  <span>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      width='24px'
+                      height='24px'
+                      viewBox='0 0 24 24'
+                      version='1.1'
+                      className='kt-svg-icon'
+                    >
+                      <g
+                        stroke='none'
+                        strokeWidth='1'
+                        fill='none'
+                        fillRule='evenodd'
+                      >
+                        <polygon points='0 0 24 0 24 24 0 24' />
+                        <path
+                          d='M5.29288961,6.70710318 C4.90236532,6.31657888 4.90236532,5.68341391 5.29288961,5.29288961 C5.68341391,4.90236532 6.31657888,4.90236532 6.70710318,5.29288961 L12.7071032,11.2928896 C13.0856821,11.6714686 13.0989277,12.281055 12.7371505,12.675721 L7.23715054,18.675721 C6.86395813,19.08284 6.23139076,19.1103429 5.82427177,18.7371505 C5.41715278,18.3639581 5.38964985,17.7313908 5.76284226,17.3242718 L10.6158586,12.0300721 L5.29288961,6.70710318 Z'
+                          fill='#000000'
+                          fillRule='nonzero'
+                          transform='translate(8.999997, 11.999999) scale(-1, 1) translate(-8.999997, -11.999999) '
+                        />
+                        <path
+                          d='M10.7071009,15.7071068 C10.3165766,16.0976311 9.68341162,16.0976311 9.29288733,15.7071068 C8.90236304,15.3165825 8.90236304,14.6834175 9.29288733,14.2928932 L15.2928873,8.29289322 C15.6714663,7.91431428 16.2810527,7.90106866 16.6757187,8.26284586 L22.6757187,13.7628459 C23.0828377,14.1360383 23.1103407,14.7686056 22.7371482,15.1757246 C22.3639558,15.5828436 21.7313885,15.6103465 21.3242695,15.2371541 L16.0300699,10.3841378 L10.7071009,15.7071068 Z'
+                          fill='#000000'
+                          fillRule='nonzero'
+                          opacity='0.3'
+                          transform='translate(15.999997, 11.999999) scale(-1, 1) rotate(-270.000000) translate(-15.999997, -11.999999) '
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                  <span>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      width='24px'
+                      height='24px'
+                      viewBox='0 0 24 24'
+                      version='1.1'
+                      className='kt-svg-icon'
+                    >
+                      <g
+                        stroke='none'
+                        strokeWidth='1'
+                        fill='none'
+                        fillRule='evenodd'
+                      >
+                        <polygon points='0 0 24 0 24 24 0 24' />
+                        <path
+                          d='M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391 12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961 L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721 C13.863964,19.08284 13.2313966,19.1103429 12.8242777,18.7371505 C12.4171587,18.3639581 12.3896557,17.7313908 12.7628481,17.3242718 L17.6158645,12.0300721 L12.2928955,6.70710318 Z'
+                          fill='#000000'
+                          fillRule='nonzero'
+                        />
+                        <path
+                          d='M3.70710678,15.7071068 C3.31658249,16.0976311 2.68341751,16.0976311 2.29289322,15.7071068 C1.90236893,15.3165825 1.90236893,14.6834175 2.29289322,14.2928932 L8.29289322,8.29289322 C8.67147216,7.91431428 9.28105859,7.90106866 9.67572463,8.26284586 L15.6757246,13.7628459 C16.0828436,14.1360383 16.1103465,14.7686056 15.7371541,15.1757246 C15.3639617,15.5828436 14.7313944,15.6103465 14.3242754,15.2371541 L9.03007575,10.3841378 L3.70710678,15.7071068 Z'
+                          fill='#000000'
+                          fillRule='nonzero'
+                          opacity='0.3'
+                          transform='translate(9.000003, 11.999999) rotate(-270.000000) translate(-9.000003, -11.999999) '
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* <!-- end:: Aside --> */}
+
+            {/* <!-- begin:: Aside Menu --> */}
+            <div
+              className='kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid'
+              id='kt_aside_menu_wrapper'
+            >
+              <div
+                id='kt_aside_menu'
+                className='kt-aside-menu '
+                data-ktmenu-vertical='1'
+                data-ktmenu-scroll='1'
+                data-ktmenu-dropdown-timeout='500'
+              >
+                <ul className='kt-menu__nav '>
+                  <li className='kt-menu__item ' aria-haspopup='true'>
+                    <Link to='/clients' className='kt-menu__link '>
+                      <span className='kt-menu__link-text'>Clientes</span>
+                    </Link>
+                  </li>
+                  <li className='kt-menu__item ' aria-haspopup='true'>
+                    <Link to='/employees' className='kt-menu__link '>
+                      <span className='kt-menu__link-text'>
+                        Emplesdados
+                      </span>
+                    </Link>
+                  </li>
+                  <li className='kt-menu__item ' aria-haspopup='true'>
+                    <Link to='/notes' className='kt-menu__link '>
+                      <span className='kt-menu__link-text'>Notas</span>
+                    </Link>
+                  </li>
+                  <li className='kt-menu__item ' aria-haspopup='true'>
+                    <Link to='/orders' className='kt-menu__link '>
+                      <span className='kt-menu__link-text'>Orden</span>
+                    </Link>
+                  </li>
+                  <li className='kt-menu__item ' aria-haspopup='true'>
+                    <Link to='/providers' className='kt-menu__link '>
+                      <span className='kt-menu__link-text'>Proveedor</span>
+                    </Link>
+                  </li>
+                  <li className='kt-menu__item ' aria-haspopup='true'>
+                    <Link to='/products' className='kt-menu__link '>
+                      <span className='kt-menu__link-text'>Producto</span>
+                    </Link>
+                  </li>
+                  <li className='kt-menu__item ' aria-haspopup='true'>
+                    <Link to='/schedules' className='kt-menu__link '>
+                      <span className='kt-menu__link-text'>Horarios</span>
+                    </Link>
+                  </li>
+                  <li className='kt-menu__item ' aria-haspopup='true'>
+                    <Link to='/employee-types' className='kt-menu__link '>
+                      <span className='kt-menu__link-text'>
+                        Tipos de empleado
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* <!-- end:: Aside Menu --> */}
+          </div>
+
+          <div
+            className='kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper'
+            id='kt_wrapper'
+          >
+            {/* <!-- begin:: Header --> */}
+            <div
+              id='kt_header'
+              className='kt-header kt-grid__item  kt-header--fixed '
+            >
+              {/* <!-- begin:: Header Menu --> */}
+              <div
+                className='kt-header-menu-wrapper'
+                id='kt_header_menu_wrapper'
+              />
+
+              {/* <!-- end:: Header Menu --> */}
+
+              {/* <!-- begin:: Header Topbar --> */}
+              <div className='kt-header__topbar'>
+                {/* <!--begin: User Bar --> */}
+                <div className='kt-header__topbar-item kt-header__topbar-item--user'>
+                  <div
+                    className='kt-header__topbar-wrapper'
+                    data-toggle='dropdown'
+                    data-offset='0px,0px'
+                  >
+                    <div className='kt-header__topbar-user'>
+                      <span className='kt-header__topbar-welcome kt-hidden-mobile'>
+                        Bienvenido,
+                      </span>
+                      <span className='kt-header__topbar-username kt-hidden-mobile'>
+                        Admin
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* <!--end: User Bar --> */}
+              </div>
+
+              {/* <!-- end:: Header Topbar --> */}
+            </div>
+
+            {/* <!-- end:: Header --> */}
+            <div
+              className='kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor'
+              id='kt_content'
+            >
+              {/* <!-- begin:: Subheader --> */}
+              <div className='kt-subheader   kt-grid__item' id='kt_subheader'>
+                <div className='kt-container  kt-container--fluid '>
+                  <div className='kt-subheader__main'>
+                    <h3 id='seccion_name' className='kt-subheader__title'>
+                      Empty Page{' '}
+                    </h3>
+                    <span className='kt-subheader__separator kt-hidden' />
+                  </div>
+                </div>
+              </div>
+
+              {/* <!-- end:: Subheader --> */}
+
+              {/* <!-- begin:: Content --> */}
+              <div className='kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid'>
+                <div className='kt-portlet kt-portlet--mobile'>
+                  <div className='kt-portlet__head kt-portlet__head--lg'>
+                    <div className='kt-portlet__head-label'>
+                      <h3 id='module-action' className='kt-portlet__head-title'>
+                        Basic
+                      </h3>
+                    </div>
+                    <div className='kt-portlet__head-toolbar'>
+                      <div className='kt-portlet__head-wrapper'>
+                        <div className='kt-portlet__head-actions' />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='kt-portlet__body'>{props.children}</div>
+                </div>
+              </div>
+
+              {/* <!-- end:: Content --> */}
+            </div>
+
+            {/* <!-- begin:: Footer --> */}
+            <div
+              className='kt-footer  kt-grid__item kt-grid kt-grid--desktop kt-grid--ver-desktop'
+              id='kt_footer'
+            >
+              <div className='kt-container  kt-container--fluid '>
+                <div className='kt-footer__copyright'>
+                  2019&nbsp;&copy;&nbsp;
+                  <a
+                    href='http://keenthemes.com/metronic'
+                    target='_blank'
+                    className='kt-link'
+                  >
+                    CuboDARC
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* <!-- end:: Footer --> */}
+          </div>
+        </div>
+      </div>
+      <div id='kt_scrolltop' className='kt-scrolltop'>
+        <i className='fa fa-arrow-up' />
+      </div>
+    </React.Fragment>
+  )
+}
+
+export default Layout
