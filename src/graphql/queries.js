@@ -60,4 +60,13 @@ const GET_EMPLOYEE = id =>
     }
   }`
 
-export { GET_CLIENTS, GET_CLIENT, GET_EMPLOYEES, GET_EMPLOYEE }
+const GET_PROVIDERS = `{
+    providers{
+      id
+      name
+      telephone
+      address
+    }
+  }`
+
+export { GET_CLIENTS, GET_CLIENT, GET_EMPLOYEES, GET_EMPLOYEE, GET_PROVIDERS }
