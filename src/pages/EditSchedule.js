@@ -1,18 +1,16 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
-import { CREATE_SCHEDULE } from '../graphql/mutations'
+import { GET_SCHEDULE } from '../graphql/queries'
+import { UPDATE_SCHEDULE } from '../graphql/mutations'
 
-class CreateSchedule extends React.Component {
+class EditSchedule extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: false,
+      loading: true,
       error: null,
-      schedule: {
-        start: '',
-        finish: ''
-      },
+      schedule: null,
       redirect: false
     }
   }
@@ -31,7 +29,7 @@ class CreateSchedule extends React.Component {
     this.setState({ loading: true, error: null })
     try {
       await axiosGraphQL.post('', {
-        query: CREATE_SCHEDULE,
+        query: UPDATE_SCHEDULE,
         variables: this.state.schedule
       })
       this.setState({ redirect: true })
@@ -42,8 +40,23 @@ class CreateSchedule extends React.Component {
 
   componentDidMount () {
     document.getElementById('section__name').innerHTML = 'Horarios'
-    document.getElementById('module__action').innerHTML = 'Crear horario'
+    document.getElementById('module__action').innerHTML = 'Editar horario'
+    this.fetchData()
   }
+
+  fetchData = async () => {
+    this.setState({ loading: true, error: null })
+    const { id } = this.props.match.params
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_SCHEDULE(id) })
+      console.log(data)
+      let schedule = data.data.data.schedules[0]
+      this.setState({ loading: false, schedule })
+    } catch (error) {
+      this.setState({ loading: false, error })
+    }
+  }
+
   render () {
     if (this.state.redirect) return <Redirect to='/schedules' />
     if (this.state.loading === true) return 'Loading...'
@@ -109,4 +122,4 @@ class CreateSchedule extends React.Component {
   }
 }
 
-export default CreateSchedule
+export default EditSchedule

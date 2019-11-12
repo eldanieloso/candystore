@@ -22,6 +22,7 @@ import EditClient from '../pages/EditClient'
 import EditEmployee from '../pages/EditEmployee'
 import ShowOrder from '../pages/ShowOrder'
 import EditProvider from '../pages/EditProvider'
+import EditSchedule from '../pages/EditSchedule'
 
 function App () {
   return (
@@ -47,6 +48,7 @@ function App () {
           <Route exact path='/products/create' component={CreateProduct} />
           <Route exact path='/schedules' component={Schedules} />
           <Route exact path='/schedules/create' component={CreateSchedule} />
+          <Route exact path='/schedules/:id' component={EditSchedule} />
           <Route exact path='/employee-types' component={EmployeeTypes} />
           <Route
             exact

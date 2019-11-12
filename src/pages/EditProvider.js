@@ -62,7 +62,10 @@ class EditProvider extends React.Component {
     if (this.state.loading === true) return 'Loading...'
     if (this.state.error === true) return 'Error'
     return (
-      <form className='kt-form kt-form--label-right'>
+      <form
+        onSubmit={this.handleSubmit}
+        className='kt-form kt-form--label-right'
+      >
         <div className='kt-portlet__body'>
           <div className='form-group row'>
             <label htmlFor='name' className='col-2 col-form-label'>
@@ -70,6 +73,7 @@ class EditProvider extends React.Component {
             </label>
             <div className='col-10'>
               <input
+                onChange={this.handleChange}
                 className='form-control'
                 type='text'
                 value={this.state.provider.name}
@@ -83,6 +87,7 @@ class EditProvider extends React.Component {
             </label>
             <div className='col-10'>
               <input
+                onChange={this.handleChange}
                 className='form-control'
                 type='text'
                 value={this.state.provider.telephone}
@@ -96,6 +101,7 @@ class EditProvider extends React.Component {
             </label>
             <div className='col-10'>
               <input
+                onChange={this.handleChange}
                 className='form-control'
                 type='text'
                 value={this.state.provider.address}

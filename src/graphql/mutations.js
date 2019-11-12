@@ -100,6 +100,28 @@ const UPDATE_PROVIDER = `
     }
 `
 
+const UPDATE_SCHEDULE = `
+    mutation updateSchedule($id:ID!, $finish:String!, $start:String!) {
+        updateSchedule(id: $id, data:{ 
+            finish: $finish
+            start: $start
+        }){
+            id
+        }
+    }
+`
+
+const CREATE_SCHEDULE = `
+    mutation createSchedule($finish:String!, $start:String!) {
+        createSchedule(data:{ 
+            finish: $finish
+            start: $start
+        }){
+            id
+        }
+    }
+`
+
 export {
   UPDATE_CLIENT,
   CREATE_CLIENT,
@@ -107,5 +129,7 @@ export {
   CREATE_EMPLOYEE,
   CREATE_ORDER,
   UPDATE_PROVIDER,
-  CREATE_PROVIDER
+  CREATE_PROVIDER,
+  UPDATE_SCHEDULE,
+  CREATE_SCHEDULE
 }

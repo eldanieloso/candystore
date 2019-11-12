@@ -107,6 +107,14 @@ const GET_SCHEDULES = `{
   }
 }`
 
+const GET_SCHEDULE = id => `{
+  schedules(id:${id}){
+    id
+    start
+    finish
+  }
+}`
+
 export {
   GET_CLIENTS,
   GET_CLIENT,
@@ -116,5 +124,6 @@ export {
   GET_ORDERS,
   GET_ORDER,
   GET_PROVIDER,
-  GET_SCHEDULES
+  GET_SCHEDULES,
+  GET_SCHEDULE
 }
