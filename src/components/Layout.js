@@ -159,7 +159,7 @@ function Layout (props) {
                   </li>
                   <li className='kt-menu__item ' aria-haspopup='true'>
                     <Link to='/orders' className='kt-menu__link '>
-                      <span className='kt-menu__link-text'>Orden</span>
+                      <span className='kt-menu__link-text'>Órdenes</span>
                     </Link>
                   </li>
                   <li className='kt-menu__item ' aria-haspopup='true'>

@@ -69,4 +69,33 @@ const GET_PROVIDERS = `{
     }
   }`
 
-export { GET_CLIENTS, GET_CLIENT, GET_EMPLOYEES, GET_EMPLOYEE, GET_PROVIDERS }
+const GET_ORDERS = `{
+    orders{
+      id
+      provider{
+        name
+      }
+      createdAt
+      arrivedAt
+    }
+  }`
+
+const GET_ORDER = id => `{
+  orders(id: ${id}){
+    id
+    provider{
+      name
+    }
+    createdAt
+  }
+}`
+
+export {
+  GET_CLIENTS,
+  GET_CLIENT,
+  GET_EMPLOYEES,
+  GET_EMPLOYEE,
+  GET_PROVIDERS,
+  GET_ORDERS,
+  GET_ORDER
+}

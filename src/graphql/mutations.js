@@ -64,4 +64,22 @@ const CREATE_EMPLOYEE = `
     }
 `
 
-export { UPDATE_CLIENT, CREATE_CLIENT, UPDATE_EMPLOYEE, CREATE_EMPLOYEE }
+const CREATE_ORDER = `
+    mutation createOrder($provider:ID!, $createdAt:String!, $products:[Contain!]!) {
+        createOrder(data:{ 
+            provider: $provider
+            createdAt: $createdAt
+            products: $products
+        }){
+            id
+        }
+    }
+`
+
+export {
+  UPDATE_CLIENT,
+  CREATE_CLIENT,
+  UPDATE_EMPLOYEE,
+  CREATE_EMPLOYEE,
+  CREATE_ORDER
+}
