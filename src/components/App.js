@@ -23,6 +23,7 @@ import EditEmployee from '../pages/EditEmployee'
 import ShowOrder from '../pages/ShowOrder'
 import EditProvider from '../pages/EditProvider'
 import EditSchedule from '../pages/EditSchedule'
+import EditEmployeeType from '../pages/EditEmployeeType'
 
 function App () {
   return (
@@ -54,6 +55,11 @@ function App () {
             exact
             path='/employee-types/create'
             component={CreateEmployeeType}
+          />
+          <Route
+            exact
+            path='/employee-types/:id'
+            component={EditEmployeeType}
           />
           <Route path='*' component={NotFound} />
         </Switch>

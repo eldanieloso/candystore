@@ -1,18 +1,16 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
-import { CREATE_EMPLOYEE_TYPE } from '../graphql/mutations'
+import { GET_EMPLOYEE_TYPE } from '../graphql/queries'
+import { UPDATE_EMPLOYEE_TYPE } from '../graphql/mutations'
 
-class CreateEmployeeType extends React.Component {
+class EditEmployeeType extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: false,
+      loading: true,
       error: null,
-      employeeType: {
-        job: '',
-        description: ''
-      },
+      employeeType: null,
       redirect: false
     }
   }
@@ -31,7 +29,7 @@ class CreateEmployeeType extends React.Component {
     this.setState({ loading: true, error: null })
     try {
       await axiosGraphQL.post('', {
-        query: CREATE_EMPLOYEE_TYPE,
+        query: UPDATE_EMPLOYEE_TYPE,
         variables: this.state.employeeType
       })
       this.setState({ redirect: true })
@@ -41,9 +39,22 @@ class CreateEmployeeType extends React.Component {
   }
 
   componentDidMount () {
-    document.getElementById('section__name').innerHTML = 'Tipos de empleado'
-    document.getElementById('module__action').innerHTML =
-      'Crear tipo de empleado'
+    document.getElementById('section__name').innerHTML = 'Horarios'
+    document.getElementById('module__action').innerHTML = 'Editar horario'
+    this.fetchData()
+  }
+
+  fetchData = async () => {
+    this.setState({ loading: true, error: null })
+    const { id } = this.props.match.params
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_EMPLOYEE_TYPE(id) })
+      console.log(data)
+      let employeeType = data.data.data.typeEmployees[0]
+      this.setState({ loading: false, employeeType })
+    } catch (error) {
+      this.setState({ loading: false, error })
+    }
   }
 
   render () {
@@ -111,4 +122,4 @@ class CreateEmployeeType extends React.Component {
   }
 }
 
-export default CreateEmployeeType
+export default EditEmployeeType

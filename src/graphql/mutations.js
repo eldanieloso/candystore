@@ -122,6 +122,28 @@ const CREATE_SCHEDULE = `
     }
 `
 
+const CREATE_EMPLOYEE_TYPE = `
+    mutation createTypeEmployee($job:String!, $description:String!) {
+        createTypeEmployee(data:{ 
+            job: $job
+            description: $description
+        }){
+            id
+        }
+    }
+`
+
+const UPDATE_EMPLOYEE_TYPE = `
+    mutation updateTypeEmployee($id:ID!, $job:String!, $description:String!) {
+        updateTypeEmployee(id: $id, data:{ 
+            job: $job
+            description: $description
+        }){
+            id
+        }
+    }
+`
+
 export {
   UPDATE_CLIENT,
   CREATE_CLIENT,
@@ -131,5 +153,7 @@ export {
   UPDATE_PROVIDER,
   CREATE_PROVIDER,
   UPDATE_SCHEDULE,
-  CREATE_SCHEDULE
+  CREATE_SCHEDULE,
+  CREATE_EMPLOYEE_TYPE,
+  UPDATE_EMPLOYEE_TYPE
 }

@@ -115,6 +115,22 @@ const GET_SCHEDULE = id => `{
   }
 }`
 
+const GET_EMPLOYEE_TYPES = `{
+  typeEmployees{
+    id
+    job
+    description
+  }
+}`
+
+const GET_EMPLOYEE_TYPE = id => `{
+  typeEmployees(id:${id}){
+    id
+    job
+    description
+  }
+}`
+
 export {
   GET_CLIENTS,
   GET_CLIENT,
@@ -125,5 +141,7 @@ export {
   GET_ORDER,
   GET_PROVIDER,
   GET_SCHEDULES,
-  GET_SCHEDULE
+  GET_SCHEDULE,
+  GET_EMPLOYEE_TYPES,
+  GET_EMPLOYEE_TYPE
 }
