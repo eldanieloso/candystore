@@ -99,6 +99,14 @@ const GET_ORDER = id => `{
   }
 }`
 
+const GET_SCHEDULES = `{
+  schedules{
+    id
+    start
+    finish
+  }
+}`
+
 export {
   GET_CLIENTS,
   GET_CLIENT,
@@ -107,5 +115,6 @@ export {
   GET_PROVIDERS,
   GET_ORDERS,
   GET_ORDER,
-  GET_PROVIDER
+  GET_PROVIDER,
+  GET_SCHEDULES
 }
