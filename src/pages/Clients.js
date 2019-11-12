@@ -9,7 +9,6 @@ class Clients extends React.Component {
     this.state = {
       loading: true,
       error: null,
-      data: undefined,
       clients: []
     }
   }
@@ -25,12 +24,12 @@ class Clients extends React.Component {
       let clients = data.data.data.clients
       this.setState({ loading: false, clients })
     } catch (error) {
-      this.setState({ loading: false, error })
+      this.setState({ loading: false, error: true })
     }
   }
   render () {
     if (this.state.loading === true) return 'Loading...'
-    if (this.state.loading === true) return 'Error'
+    if (this.state.error === true) return 'Error'
     return (
       <React.Fragment>
         <Link to='/clients/create' className='btn btn-outline-accent btn-pill'>
@@ -39,35 +38,37 @@ class Clients extends React.Component {
         <div className='kt-widget5'>
           {this.state.clients.map(client => {
             return (
-              <div key={client.id} className='kt-widget5__item'>
-                <div className='kt-widget5__content'>
-                  <div className='kt-widget5__section'>
-                    <span className='kt-widget5__title'>
-                      {`${client.name} ${client.lastName}`}
-                    </span>
-                    <p className='kt-widget5__desc'>{client.address}</p>
-                    <div className='kt-widget5__info'>
-                      <span>{client.telephone}</span>
+              <Link key={client.id} to={`/clients/${client.id}`}>
+                <div className='kt-widget5__item'>
+                  <div className='kt-widget5__content'>
+                    <div className='kt-widget5__section'>
+                      <span className='kt-widget5__title'>
+                        {`${client.name} ${client.lastName}`}
+                      </span>
+                      <p className='kt-widget5__desc'>{client.address}</p>
+                      <div className='kt-widget5__info'>
+                        <span>{client.telephone}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='kt-widget5__content'>
+                    <div className='kt-widget5__stats'>
+                      <span className='kt-widget5__number'>
+                        {client.creditAvailable}
+                      </span>
+                      <span className='kt-widget5__sales'>
+                        crédito disponible
+                      </span>
+                    </div>
+                    <div className='kt-widget5__stats'>
+                      <span className='kt-widget5__number'>
+                        {client.creditUsed}
+                      </span>
+                      <span className='kt-widget5__votes'>crédito usado</span>
                     </div>
                   </div>
                 </div>
-                <div className='kt-widget5__content'>
-                  <div className='kt-widget5__stats'>
-                    <span className='kt-widget5__number'>
-                      {client.creditAvailable}
-                    </span>
-                    <span className='kt-widget5__sales'>
-                      crédito disponible
-                    </span>
-                  </div>
-                  <div className='kt-widget5__stats'>
-                    <span className='kt-widget5__number'>
-                      {client.creditUsed}
-                    </span>
-                    <span className='kt-widget5__votes'>crédito usado</span>
-                  </div>
-                </div>
-              </div>
+              </Link>
             )
           })}
         </div>

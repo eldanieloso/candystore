@@ -218,9 +218,6 @@ function Layout (props) {
                     data-offset='0px,0px'
                   >
                     <div className='kt-header__topbar-user'>
-                      <span className='kt-header__topbar-welcome kt-hidden-mobile'>
-                        Bienvenido,
-                      </span>
                       <span className='kt-header__topbar-username kt-hidden-mobile'>
                         Admin
                       </span>

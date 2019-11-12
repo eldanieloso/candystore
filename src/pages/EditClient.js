@@ -1,26 +1,19 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
-import { CREATE_CLIENT } from '../graphql/mutations'
+import { GET_CLIENT } from '../graphql/queries'
+import { UPDATE_CLIENT } from '../graphql/mutations'
 
-class CreateClient extends React.Component {
+class EditClient extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: false,
+      loading: true,
       error: null,
-      client: {
-        name: '',
-        lastName: '',
-        address: '',
-        telephone: '',
-        creditAvailable: '',
-        creditUsed: ''
-      },
+      client: null,
       redirect: false
     }
   }
-
   handleChange = e => {
     this.setState({
       client: {
@@ -29,7 +22,6 @@ class CreateClient extends React.Component {
       }
     })
   }
-
   handleSubmit = async e => {
     e.preventDefault()
     this.setState({ loading: true, error: null })
@@ -38,7 +30,7 @@ class CreateClient extends React.Component {
       client.creditAvailable = parseFloat(client.creditAvailable)
       client.creditUsed = parseFloat(client.creditUsed)
       await axiosGraphQL.post('', {
-        query: CREATE_CLIENT,
+        query: UPDATE_CLIENT,
         variables: client
       })
       this.setState({ redirect: true })
@@ -46,12 +38,22 @@ class CreateClient extends React.Component {
       this.setState({ loading: false, error: true })
     }
   }
-
   componentDidMount () {
     document.getElementById('section__name').innerHTML = 'Clientes'
-    document.getElementById('module__action').innerHTML = 'Crear cliente'
+    document.getElementById('module__action').innerHTML = 'Editar cliente'
+    this.fetchData()
   }
-
+  fetchData = async () => {
+    this.setState({ loading: true, error: null })
+    const { id } = this.props.match.params
+    let data = await axiosGraphQL.post('', { query: GET_CLIENT(id) })
+    let client = data.data.data.clients[0]
+    this.setState({ loading: false, client })
+    try {
+    } catch (error) {
+      this.setState({ loading: false, error })
+    }
+  }
   render () {
     if (this.state.redirect) return <Redirect to='/clients' />
     if (this.state.loading === true) return 'Loading...'
@@ -173,4 +175,4 @@ class CreateClient extends React.Component {
   }
 }
 
-export default CreateClient
+export default EditClient

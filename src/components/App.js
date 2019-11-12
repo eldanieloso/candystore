@@ -18,6 +18,7 @@ import CreateProvider from '../pages/CreateProvider'
 import CreateProduct from '../pages/CreateProduct'
 import CreateSchedule from '../pages/CreateSchedule'
 import CreateEmployeeType from '../pages/CreateEmployeeType'
+import EditClient from '../pages/EditClient'
 
 function App () {
   return (
@@ -27,6 +28,7 @@ function App () {
           <Route exact path='/' component={Clients} />
           <Route exact path='/clients' component={Clients} />
           <Route exact path='/clients/create' component={CreateClient} />
+          <Route exact path='/clients/:id' component={EditClient} />
           <Route exact path='/employees' component={Employees} />
           <Route exact path='/employees/create' component={CreateEmployee} />
           <Route exact path='/notes' component={Notes} />
