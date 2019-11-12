@@ -28,4 +28,40 @@ const CREATE_CLIENT = `
     }
 `
 
-export { UPDATE_CLIENT, CREATE_CLIENT }
+const UPDATE_EMPLOYEE = `
+    mutation updateEmployee($id:ID!, $name:String!, $lastName:String!, $address:String!, $typeEmployee:ID!, $schedule:ID!, $startDate:String!, $status:String!, $salary:Float!, $endDate:String!) {
+        updateEmployee(id:$id, data:{ 
+            name: $name
+            lastName: $lastName
+            address: $address
+            schedule: $schedule
+            typeEmployee: $typeEmployee
+            startDate: $startDate
+            status: $status
+            salary: $salary
+            endDate: $endDate
+        }){
+            id
+        }
+    }
+`
+
+const CREATE_EMPLOYEE = `
+    mutation createEmployee($name:String!, $lastName:String!, $address:String!, $typeEmployee:ID!, $schedule:ID!, $startDate:String!, $status:String!, $salary:Float!, $endDate:String) {
+        createEmployee(data:{ 
+            name: $name
+            lastName: $lastName
+            address: $address
+            schedule: $schedule
+            typeEmployee: $typeEmployee
+            startDate: $startDate
+            status: $status
+            salary: $salary
+            endDate: $endDate
+        }){
+            id
+        }
+    }
+`
+
+export { UPDATE_CLIENT, CREATE_CLIENT, UPDATE_EMPLOYEE, CREATE_EMPLOYEE }

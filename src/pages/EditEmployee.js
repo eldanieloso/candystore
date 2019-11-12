@@ -1,25 +1,16 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
-import { CREATE_EMPLOYEE } from '../graphql/mutations'
+import { GET_EMPLOYEE } from '../graphql/queries'
+import { UPDATE_EMPLOYEE } from '../graphql/mutations'
 
-class CreateEmployee extends React.Component {
+class EditEmployee extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: false,
+      loading: true,
       error: null,
-      employee: {
-        name: '',
-        lastName: '',
-        address: '',
-        schedule: 1,
-        typeEmployee: 1,
-        startDate: '',
-        status: 'Active',
-        salary: 0,
-        endDate: ''
-      },
+      employee: null,
       redirect: false
     }
   }
@@ -39,10 +30,11 @@ class CreateEmployee extends React.Component {
     try {
       let employee = { ...this.state.employee }
       employee.salary = parseInt(employee.salary)
-      await axiosGraphQL.post('', {
-        query: CREATE_EMPLOYEE,
+      let data = await axiosGraphQL.post('', {
+        query: UPDATE_EMPLOYEE,
         variables: employee
       })
+      console.log(data)
       this.setState({ redirect: true })
     } catch (error) {
       this.setState({ loading: false, error: true })
@@ -51,7 +43,22 @@ class CreateEmployee extends React.Component {
 
   componentDidMount () {
     document.getElementById('section__name').innerHTML = 'Empleados'
-    document.getElementById('module__action').innerHTML = 'Crear empleado'
+    document.getElementById('module__action').innerHTML = 'Editar empleado'
+    this.fetchData()
+  }
+
+  fetchData = async () => {
+    this.setState({ loading: true, error: null })
+    const { id } = this.props.match.params
+    let data = await axiosGraphQL.post('', { query: GET_EMPLOYEE(id) })
+    let employee = data.data.data.employees[0]
+    employee.schedule = employee.schedule.id
+    employee.typeEmployee = employee.typeEmployee.id
+    this.setState({ loading: false, employee })
+    try {
+    } catch (error) {
+      this.setState({ loading: false, error })
+    }
   }
 
   render () {
@@ -217,4 +224,4 @@ class CreateEmployee extends React.Component {
   }
 }
 
-export default CreateEmployee
+export default EditEmployee

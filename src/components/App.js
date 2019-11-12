@@ -19,6 +19,7 @@ import CreateProduct from '../pages/CreateProduct'
 import CreateSchedule from '../pages/CreateSchedule'
 import CreateEmployeeType from '../pages/CreateEmployeeType'
 import EditClient from '../pages/EditClient'
+import EditEmployee from '../pages/EditEmployee'
 
 function App () {
   return (
@@ -31,6 +32,7 @@ function App () {
           <Route exact path='/clients/:id' component={EditClient} />
           <Route exact path='/employees' component={Employees} />
           <Route exact path='/employees/create' component={CreateEmployee} />
+          <Route exact path='/employees/:id' component={EditEmployee} />
           <Route exact path='/notes' component={Notes} />
           <Route exact path='/notes/create' component={CreateNote} />
           <Route exact path='/orders' component={Orders} />

@@ -44,16 +44,19 @@ const GET_EMPLOYEE = id =>
       lastName
       address
       schedule{
+        id
         start
         finish
       }
       typeEmployee{
+        id
         job
         description
       }
       startDate
       status
       salary
+      endDate
     }
   }`
 
