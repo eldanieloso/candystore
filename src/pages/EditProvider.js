@@ -1,19 +1,16 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
-import { CREATE_PROVIDER } from '../graphql/mutations'
+import { GET_PROVIDER } from '../graphql/queries'
+import { UPDATE_PROVIDER } from '../graphql/mutations'
 
-class CreateProvider extends React.Component {
+class EditProvider extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: false,
+      loading: true,
       error: null,
-      provider: {
-        name: '',
-        telephone: '',
-        address: ''
-      },
+      provider: null,
       redirect: false
     }
   }
@@ -32,7 +29,7 @@ class CreateProvider extends React.Component {
     this.setState({ loading: true, error: null })
     try {
       await axiosGraphQL.post('', {
-        query: CREATE_PROVIDER,
+        query: UPDATE_PROVIDER,
         variables: this.state.provider
       })
       this.setState({ redirect: true })
@@ -43,7 +40,21 @@ class CreateProvider extends React.Component {
 
   componentDidMount () {
     document.getElementById('section__name').innerHTML = 'Proveedores'
-    document.getElementById('module__action').innerHTML = 'Crear proveedor'
+    document.getElementById('module__action').innerHTML = 'Mostrar proveedor'
+    this.fetchData()
+  }
+
+  fetchData = async () => {
+    this.setState({ loading: true, error: null })
+    const { id } = this.props.match.params
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_PROVIDER(id) })
+      console.log(data)
+      let provider = data.data.data.providers[0]
+      this.setState({ loading: false, provider })
+    } catch (error) {
+      this.setState({ loading: false, error })
+    }
   }
 
   render () {
@@ -51,10 +62,7 @@ class CreateProvider extends React.Component {
     if (this.state.loading === true) return 'Loading...'
     if (this.state.error === true) return 'Error'
     return (
-      <form
-        onSubmit={this.handleSubmit}
-        className='kt-form kt-form--label-right'
-      >
+      <form className='kt-form kt-form--label-right'>
         <div className='kt-portlet__body'>
           <div className='form-group row'>
             <label htmlFor='name' className='col-2 col-form-label'>
@@ -62,7 +70,6 @@ class CreateProvider extends React.Component {
             </label>
             <div className='col-10'>
               <input
-                onChange={this.handleChange}
                 className='form-control'
                 type='text'
                 value={this.state.provider.name}
@@ -76,7 +83,6 @@ class CreateProvider extends React.Component {
             </label>
             <div className='col-10'>
               <input
-                onChange={this.handleChange}
                 className='form-control'
                 type='text'
                 value={this.state.provider.telephone}
@@ -90,7 +96,6 @@ class CreateProvider extends React.Component {
             </label>
             <div className='col-10'>
               <input
-                onChange={this.handleChange}
                 className='form-control'
                 type='text'
                 value={this.state.provider.address}
@@ -125,4 +130,4 @@ class CreateProvider extends React.Component {
   }
 }
 
-export default CreateProvider
+export default EditProvider

@@ -69,6 +69,15 @@ const GET_PROVIDERS = `{
     }
   }`
 
+const GET_PROVIDER = id => `{
+  providers(id:${id}){
+    id
+    name
+    telephone
+    address
+  }
+}`
+
 const GET_ORDERS = `{
     orders{
       id
@@ -97,5 +106,6 @@ export {
   GET_EMPLOYEE,
   GET_PROVIDERS,
   GET_ORDERS,
-  GET_ORDER
+  GET_ORDER,
+  GET_PROVIDER
 }

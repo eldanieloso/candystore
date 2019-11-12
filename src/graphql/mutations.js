@@ -76,10 +76,36 @@ const CREATE_ORDER = `
     }
 `
 
+const CREATE_PROVIDER = `
+    mutation createProvider($name:String!, $telephone:String!, $address:String!) {
+        createProvider(data:{ 
+            name: $name
+            telephone: $telephone
+            address: $address
+        }){
+            id
+        }
+    }
+`
+
+const UPDATE_PROVIDER = `
+    mutation updateProvider($id:ID!, $name:String!, $telephone:String!, $address:String!) {
+        updateProvider(id: $id, data:{ 
+            name: $name
+            telephone: $telephone
+            address: $address
+        }){
+            id
+        }
+    }
+`
+
 export {
   UPDATE_CLIENT,
   CREATE_CLIENT,
   UPDATE_EMPLOYEE,
   CREATE_EMPLOYEE,
-  CREATE_ORDER
+  CREATE_ORDER,
+  UPDATE_PROVIDER,
+  CREATE_PROVIDER
 }

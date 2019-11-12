@@ -46,10 +46,10 @@ class EditClient extends React.Component {
   fetchData = async () => {
     this.setState({ loading: true, error: null })
     const { id } = this.props.match.params
-    let data = await axiosGraphQL.post('', { query: GET_CLIENT(id) })
-    let client = data.data.data.clients[0]
-    this.setState({ loading: false, client })
     try {
+      let data = await axiosGraphQL.post('', { query: GET_CLIENT(id) })
+      let client = data.data.data.clients[0]
+      this.setState({ loading: false, client })
     } catch (error) {
       this.setState({ loading: false, error })
     }
