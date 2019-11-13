@@ -176,6 +176,19 @@ const CREATE_PRODUCT = `
     }
 `
 
+const CREATE_NOTE = `
+    mutation createNote($date:String!, $client:ID!, $employee:ID!, $products:[Contain!]!) {
+        createNote(data:{ 
+            date: $date
+            client: $client
+            employee: $employee
+            products: $products
+        }){
+            id
+        }
+    }
+`
+
 export {
   UPDATE_CLIENT,
   CREATE_CLIENT,
@@ -189,5 +202,6 @@ export {
   CREATE_EMPLOYEE_TYPE,
   UPDATE_EMPLOYEE_TYPE,
   UPDATE_PRODUCT,
-  CREATE_PRODUCT
+  CREATE_PRODUCT,
+  CREATE_NOTE
 }

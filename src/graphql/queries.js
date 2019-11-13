@@ -167,6 +167,34 @@ const GET_PRODUCT = id => `{
   }
 }`
 
+const GET_NOTES = `{
+  notes{
+    id
+    date
+    client{
+      name
+    }
+    employee{
+      name
+    }
+  }
+}`
+
+const GET_NOTE = id => `{
+  notes(id:${id}){
+    id
+    date
+    client{
+      name
+      lastName
+    }
+    employee{
+      name
+      lastName
+    }
+  }
+}`
+
 export {
   GET_CLIENTS,
   GET_CLIENT,
@@ -181,5 +209,7 @@ export {
   GET_EMPLOYEE_TYPES,
   GET_EMPLOYEE_TYPE,
   GET_PRODUCTS,
-  GET_PRODUCT
+  GET_PRODUCT,
+  GET_NOTES,
+  GET_NOTE
 }
