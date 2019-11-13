@@ -195,6 +195,13 @@ const GET_NOTE = id => `{
   }
 }`
 
+const GET_UNITS = `{
+  units{
+    id
+    name
+  }
+}`
+
 export {
   GET_CLIENTS,
   GET_CLIENT,
@@ -211,5 +218,6 @@ export {
   GET_PRODUCTS,
   GET_PRODUCT,
   GET_NOTES,
-  GET_NOTE
+  GET_NOTE,
+  GET_UNITS
 }

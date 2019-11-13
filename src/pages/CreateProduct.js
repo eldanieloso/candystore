@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { CREATE_PRODUCT } from '../graphql/mutations'
+import { GET_PROVIDERS, GET_UNITS } from '../graphql/queries'
 
 class CreateProduct extends React.Component {
   constructor (props) {
@@ -18,7 +19,35 @@ class CreateProduct extends React.Component {
         provider: 1,
         unit: 1
       },
+      providers: [],
+      units: [],
       redirect: false
+    }
+    this.getProviders()
+    this.getUnits()
+  }
+
+  getProviders = async () => {
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_PROVIDERS })
+      let providers = data.data.data.providers
+      let newProduct = { ...this.state.product }
+      newProduct.provider = providers[0].id
+      this.setState({ providers, product: newProduct })
+    } catch (error) {
+      this.setState({ error: true })
+    }
+  }
+
+  getUnits = async () => {
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_UNITS })
+      let units = data.data.data.units
+      let newProduct = { ...this.state.product }
+      newProduct.unit = units[0].id
+      this.setState({ units, product: newProduct })
+    } catch (error) {
+      this.setState({ error: true })
     }
   }
 
@@ -139,13 +168,19 @@ class CreateProduct extends React.Component {
               Proveedor
             </label>
             <div className='col-10'>
-              <input
+              <select
                 onChange={this.handleChange}
                 className='form-control'
-                type='number'
-                value={this.state.product.provider}
                 id='provider'
-              />
+              >
+                {this.state.providers.map(provider => {
+                  return (
+                    <option key={provider.id} value={provider.id}>
+                      {provider.name}
+                    </option>
+                  )
+                })}
+              </select>
             </div>
           </div>
           <div className='form-group row'>
@@ -153,13 +188,19 @@ class CreateProduct extends React.Component {
               Unidad
             </label>
             <div className='col-10'>
-              <input
+              <select
                 onChange={this.handleChange}
                 className='form-control'
-                type='number'
-                value={this.state.product.unit}
                 id='unit'
-              />
+              >
+                {this.state.units.map(unit => {
+                  return (
+                    <option key={unit.id} value={unit.id}>
+                      {unit.name}
+                    </option>
+                  )
+                })}
+              </select>
             </div>
           </div>
         </div>

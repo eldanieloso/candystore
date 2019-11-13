@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { CREATE_EMPLOYEE } from '../graphql/mutations'
+import { GET_SCHEDULES, GET_EMPLOYEE_TYPES } from '../graphql/queries'
 
 class CreateEmployee extends React.Component {
   constructor (props) {
@@ -20,7 +21,35 @@ class CreateEmployee extends React.Component {
         salary: 0,
         endDate: ''
       },
+      schedules: [],
+      employeeTypes: [],
       redirect: false
+    }
+    this.getSchedules()
+    this.getEmployeeTypes()
+  }
+
+  getSchedules = async () => {
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_SCHEDULES })
+      let schedules = data.data.data.schedules
+      let newEmployee = { ...this.state.employee }
+      newEmployee.schedule = schedules[0].id
+      this.setState({ schedules, employee: newEmployee })
+    } catch (error) {
+      this.setState({ error: true })
+    }
+  }
+
+  getEmployeeTypes = async () => {
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_EMPLOYEE_TYPES })
+      let employeeTypes = data.data.data.typeEmployees
+      let newEmployee = { ...this.state.employee }
+      newEmployee.typeEmployee = employeeTypes[0].id
+      this.setState({ employeeTypes, employee: newEmployee })
+    } catch (error) {
+      this.setState({ error: true })
     }
   }
 
@@ -55,6 +84,7 @@ class CreateEmployee extends React.Component {
   }
 
   render () {
+    console.log(this.state)
     if (this.state.redirect) return <Redirect to='/employees' />
     if (this.state.loading === true) return 'Loading...'
     if (this.state.error === true) return 'Error'
@@ -111,13 +141,19 @@ class CreateEmployee extends React.Component {
               Horario
             </label>
             <div className='col-10'>
-              <input
+              <select
                 onChange={this.handleChange}
                 className='form-control'
-                type='number'
-                value={this.state.employee.schedule}
                 id='schedule'
-              />
+              >
+                {this.state.schedules.map(schedule => {
+                  return (
+                    <option key={schedule.id} value={schedule.id}>{`${
+                      schedule.start
+                    } - ${schedule.finish}`}</option>
+                  )
+                })}
+              </select>
             </div>
           </div>
           <div className='form-group row'>
@@ -125,13 +161,17 @@ class CreateEmployee extends React.Component {
               Tipo de empleado
             </label>
             <div className='col-10'>
-              <input
+            <select
                 onChange={this.handleChange}
                 className='form-control'
-                type='number'
-                value={this.state.employee.typeEmployee}
                 id='typeEmployee'
-              />
+              >
+                {this.state.employeeTypes.map(employeeType => {
+                  return (
+                    <option key={employeeType.id} value={employeeType.id}>{employeeType.job}</option>
+                  )
+                })}
+              </select>
             </div>
           </div>
           <div className='form-group row'>

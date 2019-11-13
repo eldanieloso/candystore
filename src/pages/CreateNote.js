@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { CREATE_NOTE } from '../graphql/mutations'
+import { GET_CLIENTS, GET_EMPLOYEES, GET_PRODUCTS } from '../graphql/queries'
 
 class CreateNote extends React.Component {
   constructor (props) {
@@ -16,7 +17,49 @@ class CreateNote extends React.Component {
         product: 1,
         quantity: 1
       },
+      clients: [],
+      employees: [],
+      products: [],
       redirect: false
+    }
+    this.getClients()
+    this.getEmployees()
+    this.getProducts()
+  }
+
+  getClients = async () => {
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_CLIENTS })
+      let clients = data.data.data.clients
+      let newNote = { ...this.state.note }
+      newNote.client = clients[0].id
+      this.setState({ clients, note: newNote })
+    } catch (error) {
+      this.setState({ error: true })
+    }
+  }
+
+  getEmployees = async () => {
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_EMPLOYEES })
+      let employees = data.data.data.employees
+      let newNote = { ...this.state.note }
+      newNote.employee = employees[0].id
+      this.setState({ employees, note: newNote })
+    } catch (error) {
+      this.setState({ error: true })
+    }
+  }
+
+  getProducts = async () => {
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_PRODUCTS })
+      let products = data.data.data.products
+      let newNote = { ...this.state.note }
+      newNote.product = products[0].id
+      this.setState({ products, note: newNote })
+    } catch (error) {
+      this.setState({ error: true })
     }
   }
 
@@ -86,13 +129,19 @@ class CreateNote extends React.Component {
               Cliente
             </label>
             <div className='col-10'>
-              <input
+              <select
                 onChange={this.handleChange}
                 className='form-control'
-                type='text'
-                value={this.state.note.client}
                 id='client'
-              />
+              >
+                {this.state.clients.map(client => {
+                  return (
+                    <option key={client.id} value={client.id}>
+                      {client.name}
+                    </option>
+                  )
+                })}
+              </select>
             </div>
           </div>
           <div className='form-group row'>
@@ -100,13 +149,19 @@ class CreateNote extends React.Component {
               Empleado
             </label>
             <div className='col-10'>
-              <input
+              <select
                 onChange={this.handleChange}
                 className='form-control'
-                type='text'
-                value={this.state.note.employee}
                 id='employee'
-              />
+              >
+                {this.state.employees.map(employee => {
+                  return (
+                    <option key={employee.id} value={employee.id}>
+                      {employee.name}
+                    </option>
+                  )
+                })}
+              </select>
             </div>
           </div>
           <div className='form-group row'>
@@ -114,13 +169,19 @@ class CreateNote extends React.Component {
               Producto
             </label>
             <div className='col-10'>
-              <input
+              <select
                 onChange={this.handleChange}
                 className='form-control'
-                type='number'
-                value={this.state.note.product}
                 id='product'
-              />
+              >
+                {this.state.products.map(product => {
+                  return (
+                    <option key={product.id} value={product.id}>
+                      {product.name}
+                    </option>
+                  )
+                })}
+              </select>
             </div>
           </div>
           <div className='form-group row'>

@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { CREATE_ORDER } from '../graphql/mutations'
+import { GET_PROVIDERS, GET_PRODUCTS } from '../graphql/queries'
 
 class CreateOrder extends React.Component {
   constructor (props) {
@@ -15,7 +16,35 @@ class CreateOrder extends React.Component {
         product: 1,
         quantity: 1
       },
+      providers: [],
+      products: [],
       redirect: false
+    }
+    this.getProviders()
+    this.getProducts()
+  }
+
+  getProviders = async () => {
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_PROVIDERS })
+      let providers = data.data.data.providers
+      let newNote = { ...this.state.note }
+      newNote.provider = providers[0].id
+      this.setState({ providers, note: newNote })
+    } catch (error) {
+      this.setState({ error: true })
+    }
+  }
+
+  getProducts = async () => {
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_PRODUCTS })
+      let products = data.data.data.products
+      let newNote = { ...this.state.note }
+      newNote.product = products[0].id
+      this.setState({ products, note: newNote })
+    } catch (error) {
+      this.setState({ error: true })
     }
   }
 
@@ -71,13 +100,19 @@ class CreateOrder extends React.Component {
               Proveedor
             </label>
             <div className='col-10'>
-              <input
+              <select
                 onChange={this.handleChange}
                 className='form-control'
-                type='text'
-                value={this.state.order.provider}
                 id='provider'
-              />
+              >
+                {this.state.providers.map(provider => {
+                  return (
+                    <option key={provider.id} value={provider.id}>
+                      {provider.name}
+                    </option>
+                  )
+                })}
+              </select>
             </div>
           </div>
           <div className='form-group row'>
@@ -99,13 +134,19 @@ class CreateOrder extends React.Component {
               Producto
             </label>
             <div className='col-10'>
-              <input
+              <select
                 onChange={this.handleChange}
                 className='form-control'
-                type='number'
-                value={this.state.order.product}
                 id='product'
-              />
+              >
+                {this.state.products.map(product => {
+                  return (
+                    <option key={product.id} value={product.id}>
+                      {product.name}
+                    </option>
+                  )
+                })}
+              </select>
             </div>
           </div>
           <div className='form-group row'>
