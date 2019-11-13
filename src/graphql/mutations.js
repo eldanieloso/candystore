@@ -189,6 +189,12 @@ const CREATE_NOTE = `
     }
 `
 
+const DELETE_PROVIDER = `
+    mutation deleteProvider($id:ID!, $newId:ID!) {
+        deleteProvider(id:$id,newId:$newId)
+    }
+`
+
 export {
   UPDATE_CLIENT,
   CREATE_CLIENT,
@@ -203,5 +209,6 @@ export {
   UPDATE_EMPLOYEE_TYPE,
   UPDATE_PRODUCT,
   CREATE_PRODUCT,
-  CREATE_NOTE
+  CREATE_NOTE,
+  DELETE_PROVIDER
 }
