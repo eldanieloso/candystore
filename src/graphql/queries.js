@@ -131,6 +131,42 @@ const GET_EMPLOYEE_TYPE = id => `{
   }
 }`
 
+const GET_PRODUCTS = `{
+  products{
+    id
+    name
+    description
+    onStock
+    provider{
+      name
+    }
+    price{
+      value
+    }
+  }
+}`
+
+const GET_PRODUCT = id => `{
+  products(id:${id}){
+    id
+    name
+    description
+    onStock
+    provider{
+      id
+    }
+    unit{
+      id
+    }
+    cost{
+      value
+    }
+    price{
+      value
+    }
+  }
+}`
+
 export {
   GET_CLIENTS,
   GET_CLIENT,
@@ -143,5 +179,7 @@ export {
   GET_SCHEDULES,
   GET_SCHEDULE,
   GET_EMPLOYEE_TYPES,
-  GET_EMPLOYEE_TYPE
+  GET_EMPLOYEE_TYPE,
+  GET_PRODUCTS,
+  GET_PRODUCT
 }

@@ -1,23 +1,16 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
-import { CREATE_PRODUCT } from '../graphql/mutations'
+import { GET_PRODUCT } from '../graphql/queries'
+import { UPDATE_PRODUCT } from '../graphql/mutations'
 
-class CreateProduct extends React.Component {
+class EditProduct extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: false,
+      loading: true,
       error: null,
-      product: {
-        name: '',
-        description: '',
-        onStock: 0,
-        cost: 0,
-        price: 0,
-        provider: 1,
-        unit: 1
-      },
+      product: null,
       redirect: false
     }
   }
@@ -39,8 +32,10 @@ class CreateProduct extends React.Component {
       product.onStock = parseFloat(product.onStock)
       product.cost = parseFloat(product.cost)
       product.price = parseFloat(product.price)
+      product.provider = product.provider.id
+      product.unit = product.unit.id
       await axiosGraphQL.post('', {
-        query: CREATE_PRODUCT,
+        query: UPDATE_PRODUCT,
         variables: product
       })
       this.setState({ redirect: true })
@@ -51,7 +46,20 @@ class CreateProduct extends React.Component {
 
   componentDidMount () {
     document.getElementById('section__name').innerHTML = 'Productos'
-    document.getElementById('module__action').innerHTML = 'Crear producto'
+    document.getElementById('module__action').innerHTML = 'Editar producto'
+    this.fetchData()
+  }
+
+  fetchData = async () => {
+    this.setState({ loading: true, error: null })
+    const { id } = this.props.match.params
+    try {
+      let data = await axiosGraphQL.post('', { query: GET_PRODUCT(id) })
+      let product = data.data.data.products[0]
+      this.setState({ loading: false, product })
+    } catch (error) {
+      this.setState({ loading: false, error: true })
+    }
   }
 
   render () {
@@ -115,7 +123,7 @@ class CreateProduct extends React.Component {
                 onChange={this.handleChange}
                 className='form-control'
                 type='number'
-                value={this.state.product.cost}
+                value={this.state.product.cost.value}
                 id='cost'
               />
             </div>
@@ -129,7 +137,7 @@ class CreateProduct extends React.Component {
                 onChange={this.handleChange}
                 className='form-control'
                 type='number'
-                value={this.state.product.price}
+                value={this.state.product.price.value}
                 id='price'
               />
             </div>
@@ -143,7 +151,7 @@ class CreateProduct extends React.Component {
                 onChange={this.handleChange}
                 className='form-control'
                 type='number'
-                value={this.state.product.provider}
+                value={this.state.product.provider.id}
                 id='provider'
               />
             </div>
@@ -157,7 +165,7 @@ class CreateProduct extends React.Component {
                 onChange={this.handleChange}
                 className='form-control'
                 type='number'
-                value={this.state.product.unit}
+                value={this.state.product.unit.id}
                 id='unit'
               />
             </div>
@@ -189,4 +197,4 @@ class CreateProduct extends React.Component {
   }
 }
 
-export default CreateProduct
+export default EditProduct

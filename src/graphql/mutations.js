@@ -144,6 +144,38 @@ const UPDATE_EMPLOYEE_TYPE = `
     }
 `
 
+const UPDATE_PRODUCT = `
+    mutation updateProduct($id:ID!, $name:String!, $description:String!, $onStock:Float!, $cost:Float!, $price:Float!, $provider:ID!, $unit:ID! ) {
+        updateProduct(id: $id, data:{ 
+            name: $name
+            description: $description
+            onStock: $onStock
+            cost: $cost
+            price: $price
+            provider: $provider
+            unit: $unit
+        }){
+            id
+        }
+    }
+`
+
+const CREATE_PRODUCT = `
+    mutation createProduct($name:String!, $description:String!, $onStock:Float!, $cost:Float!, $price:Float!, $provider:ID!, $unit:ID! ) {
+        createProduct(data:{ 
+            name: $name
+            description: $description
+            onStock: $onStock
+            cost: $cost
+            price: $price
+            provider: $provider
+            unit: $unit
+        }){
+            id
+        }
+    }
+`
+
 export {
   UPDATE_CLIENT,
   CREATE_CLIENT,
@@ -155,5 +187,7 @@ export {
   UPDATE_SCHEDULE,
   CREATE_SCHEDULE,
   CREATE_EMPLOYEE_TYPE,
-  UPDATE_EMPLOYEE_TYPE
+  UPDATE_EMPLOYEE_TYPE,
+  UPDATE_PRODUCT,
+  CREATE_PRODUCT
 }

@@ -24,6 +24,7 @@ import ShowOrder from '../pages/ShowOrder'
 import EditProvider from '../pages/EditProvider'
 import EditSchedule from '../pages/EditSchedule'
 import EditEmployeeType from '../pages/EditEmployeeType'
+import EditProduct from '../pages/EditProduct'
 
 function App () {
   return (
@@ -47,6 +48,7 @@ function App () {
           <Route exact path='/providers/:id' component={EditProvider} />
           <Route exact path='/products' component={Products} />
           <Route exact path='/products/create' component={CreateProduct} />
+          <Route exact path='/products/:id' component={EditProduct} />
           <Route exact path='/schedules' component={Schedules} />
           <Route exact path='/schedules/create' component={CreateSchedule} />
           <Route exact path='/schedules/:id' component={EditSchedule} />
