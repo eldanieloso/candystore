@@ -161,14 +161,16 @@ class CreateEmployee extends React.Component {
               Tipo de empleado
             </label>
             <div className='col-10'>
-            <select
+              <select
                 onChange={this.handleChange}
                 className='form-control'
                 id='typeEmployee'
               >
                 {this.state.employeeTypes.map(employeeType => {
                   return (
-                    <option key={employeeType.id} value={employeeType.id}>{employeeType.job}</option>
+                    <option key={employeeType.id} value={employeeType.id}>
+                      {employeeType.job}
+                    </option>
                   )
                 })}
               </select>
