@@ -60,7 +60,9 @@ class Products extends React.Component {
                       <span className='kt-widget5__sales'>en stock</span>
                     </div>
                     <div className='kt-widget5__stats'>
-                      <span className='kt-widget5__number'>${product.price.value || 0}</span>
+                      <span className='kt-widget5__number'>
+                        ${product.price[product.price.length - 1].value || 0}
+                      </span>
                       <span className='kt-widget5__votes'>precio</span>
                     </div>
                   </div>

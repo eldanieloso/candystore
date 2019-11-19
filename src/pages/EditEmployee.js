@@ -149,14 +149,13 @@ class EditEmployee extends React.Component {
                 onChange={this.handleChange}
                 className='form-control'
                 id='schedule'
+                defaultValue={this.state.employee.id}
               >
                 {this.state.schedules.map(schedule => {
                   return (
-                    <option
-                      selected={schedule.id === this.state.employee.id}
-                      key={schedule.id}
-                      value={schedule.id}
-                    >{`${schedule.start} - ${schedule.finish}`}</option>
+                    <option key={schedule.id} value={schedule.id}>{`${
+                      schedule.start
+                    } - ${schedule.finish}`}</option>
                   )
                 })}
               </select>
@@ -171,16 +170,11 @@ class EditEmployee extends React.Component {
                 onChange={this.handleChange}
                 className='form-control'
                 id='typeEmployee'
+                defaultValue={this.state.employee.typeEmployee}
               >
                 {this.state.employeeTypes.map(employeeType => {
                   return (
-                    <option
-                      selected={
-                        employeeType.id === this.state.employee.typeEmployee
-                      }
-                      key={employeeType.id}
-                      value={employeeType.id}
-                    >
+                    <option key={employeeType.id} value={employeeType.id}>
                       {employeeType.job}
                     </option>
                   )
@@ -221,13 +215,15 @@ class EditEmployee extends React.Component {
               Status
             </label>
             <div className='col-10'>
-              <input
-                onChange={this.handleChange}
+              <select
                 className='form-control'
-                type='text'
-                value={this.state.employee.status}
                 id='status'
-              />
+                onChange={this.handleChange}
+                defaultValue={this.state.employee.status}
+              >
+                <option value='Active'>Activo</option>
+                <option value='Inactive'>Inactivo</option>
+              </select>
             </div>
           </div>
           <div className='form-group row'>

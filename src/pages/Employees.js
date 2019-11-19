@@ -57,7 +57,7 @@ class Employees extends React.Component {
                   <div className='kt-widget5__content'>
                     <div className='kt-widget5__stats'>
                       <span className='kt-widget5__number'>
-                        {employee.status}
+                        {employee.status === 'Active' ? 'Activo' : 'Inactivo'}
                       </span>
                       <span className='kt-widget5__sales'>status</span>
                     </div>

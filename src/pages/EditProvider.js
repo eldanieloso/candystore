@@ -49,7 +49,6 @@ class EditProvider extends React.Component {
     const { id } = this.props.match.params
     try {
       let data = await axiosGraphQL.post('', { query: GET_PROVIDER(id) })
-      console.log(data)
       let provider = data.data.data.providers[0]
       this.setState({ loading: false, provider })
     } catch (error) {

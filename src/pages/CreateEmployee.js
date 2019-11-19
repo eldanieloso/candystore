@@ -209,13 +209,14 @@ class CreateEmployee extends React.Component {
               Status
             </label>
             <div className='col-10'>
-              <input
-                onChange={this.handleChange}
+              <select
                 className='form-control'
-                type='text'
-                value={this.state.employee.status}
                 id='status'
-              />
+                onChange={this.handleChange}
+              >
+                <option value='Active'>Activo</option>
+                <option value='Inactive'>Inactivo</option>
+              </select>
             </div>
           </div>
           <div className='form-group row'>
