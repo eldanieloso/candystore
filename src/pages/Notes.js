@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { GET_NOTES } from '../graphql/queries'
+import timestampToDate from 'timestamp-to-date'
 
 class Notes extends React.Component {
   constructor (props) {
@@ -45,7 +46,9 @@ class Notes extends React.Component {
                 <div className='kt-widget5__item'>
                   <div className='kt-widget5__content'>
                     <div className='kt-widget5__section'>
-                      <span className='kt-widget5__title'>{note.date}</span>
+                      <span className='kt-widget5__title'>
+                        {timestampToDate(note.date, 'yyyy/MM/dd')}
+                      </span>
                       <p className='kt-widget5__desc'>
                         Cliente: {note.client.name}
                         <br />

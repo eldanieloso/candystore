@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { GET_ORDERS } from '../graphql/queries'
+import timestampToDate from 'timestamp-to-date'
 
 class Orders extends React.Component {
   constructor (props) {
@@ -49,7 +50,8 @@ class Orders extends React.Component {
                         {order.provider.name}
                       </span>
                       <p className='kt-widget5__desc'>
-                        Creado el {order.createdAt}
+                        Creado el{' '}
+                        {timestampToDate(order.createdAt, 'yyyy/MM/dd')}
                       </p>
                     </div>
                   </div>

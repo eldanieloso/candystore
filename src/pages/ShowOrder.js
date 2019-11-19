@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { GET_ORDER } from '../graphql/queries'
+import timestampToDate from 'timestamp-to-date'
 
 class ShowOrder extends React.Component {
   constructor (props) {
@@ -59,7 +60,10 @@ class ShowOrder extends React.Component {
               <input
                 className='form-control'
                 type='text'
-                value={this.state.order.createdAt}
+                value={timestampToDate(
+                  this.state.order.createdAt,
+                  'yyyy/MM/dd'
+                )}
                 id='lastName'
                 readOnly
               />

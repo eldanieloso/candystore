@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { GET_NOTE } from '../graphql/queries'
+import timestampToDate from 'timestamp-to-date'
 
 class ShowNote extends React.Component {
   constructor (props) {
@@ -45,7 +46,7 @@ class ShowNote extends React.Component {
               <input
                 className='form-control'
                 type='text'
-                value={this.state.note.date}
+                value={timestampToDate(this.state.note.date, 'yyyy/MM/dd')}
                 id='date'
                 readOnly
               />
