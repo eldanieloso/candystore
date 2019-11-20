@@ -2,6 +2,10 @@ import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { CREATE_SCHEDULE } from '../graphql/mutations'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
+
+import 'react-datepicker/dist/react-datepicker.css'
 
 class CreateSchedule extends React.Component {
   constructor (props) {
@@ -10,8 +14,8 @@ class CreateSchedule extends React.Component {
       loading: false,
       error: null,
       schedule: {
-        start: '',
-        finish: ''
+        start: new Date(),
+        finish: new Date()
       },
       redirect: false
     }
@@ -30,9 +34,12 @@ class CreateSchedule extends React.Component {
     e.preventDefault()
     this.setState({ loading: true, error: null })
     try {
+      let newSchedule = {...this.state.schedule}
+      newSchedule.start = moment(newSchedule.start).format('HH:mm:ss')
+      newSchedule.finish = moment(newSchedule.finish).format('HH:mm:ss')
       await axiosGraphQL.post('', {
         query: CREATE_SCHEDULE,
-        variables: this.state.schedule
+        variables: newSchedule
       })
       this.setState({ redirect: true })
     } catch (error) {
@@ -44,6 +51,19 @@ class CreateSchedule extends React.Component {
     document.getElementById('section__name').innerHTML = 'Horarios'
     document.getElementById('module__action').innerHTML = 'Crear horario'
   }
+
+  setStart (time) {
+    let newSchedule = { ...this.state.schedule }
+    newSchedule.start = time
+    this.setState({ schedule: newSchedule })
+  }
+
+  setFinish (time) {
+    let newSchedule = { ...this.state.schedule }
+    newSchedule.finish = time
+    this.setState({ schedule: newSchedule })
+  }
+
   render () {
     if (this.state.redirect) return <Redirect to='/schedules' />
     if (this.state.loading === true) return 'Loading...'
@@ -59,12 +79,17 @@ class CreateSchedule extends React.Component {
               Inicio
             </label>
             <div className='col-10'>
-              <input
-                onChange={this.handleChange}
+              <DatePicker
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption='Hora'
+                dateFormat='HH:mm:ss'
+                onChange={time => this.setStart(time)}
                 className='form-control'
-                type='text'
-                value={this.state.schedule.start}
                 id='start'
+                selected={this.state.schedule.start}
+                withPortal
               />
             </div>
           </div>
@@ -73,12 +98,17 @@ class CreateSchedule extends React.Component {
               Fin
             </label>
             <div className='col-10'>
-              <input
-                onChange={this.handleChange}
+              <DatePicker
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                timeCaption='Hora'
+                dateFormat='HH:mm:ss'
+                onChange={time => this.setFinish(time)}
                 className='form-control'
-                type='text'
-                value={this.state.schedule.finish}
                 id='finish'
+                selected={this.state.schedule.finish}
+                withPortal
               />
             </div>
           </div>

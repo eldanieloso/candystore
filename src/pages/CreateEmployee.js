@@ -3,6 +3,9 @@ import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { CREATE_EMPLOYEE } from '../graphql/mutations'
 import { GET_SCHEDULES, GET_EMPLOYEE_TYPES } from '../graphql/queries'
+import DatePicker from 'react-datepicker'
+
+import 'react-datepicker/dist/react-datepicker.css'
 
 class CreateEmployee extends React.Component {
   constructor (props) {
@@ -16,10 +19,10 @@ class CreateEmployee extends React.Component {
         address: '',
         schedule: 1,
         typeEmployee: 1,
-        startDate: '',
+        startDate: new Date(),
         status: 'Active',
         salary: 0,
-        endDate: ''
+        endDate: new Date()
       },
       schedules: [],
       employeeTypes: [],
@@ -83,8 +86,19 @@ class CreateEmployee extends React.Component {
     document.getElementById('module__action').innerHTML = 'Crear empleado'
   }
 
+  setStartDate (date) {
+    let newEmployee = { ...this.state.employee }
+    newEmployee.startDate = date
+    this.setState({ employee: newEmployee })
+  }
+
+  setEndDate (date) {
+    let newEmployee = { ...this.state.employee }
+    newEmployee.endDate = date
+    this.setState({ employee: newEmployee })
+  }
+
   render () {
-    console.log(this.state)
     if (this.state.redirect) return <Redirect to='/employees' />
     if (this.state.loading === true) return 'Loading...'
     if (this.state.error === true) return 'Error'
@@ -181,12 +195,13 @@ class CreateEmployee extends React.Component {
               Fecha de inicio
             </label>
             <div className='col-10'>
-              <input
-                onChange={this.handleChange}
+              <DatePicker
+                dateFormat='yyyy/MM/dd'
+                onChange={date => this.setStartDate(date)}
                 className='form-control'
-                type='text'
-                value={this.state.employee.startDate}
                 id='startDate'
+                selected={this.state.employee.startDate}
+                withPortal
               />
             </div>
           </div>
@@ -195,12 +210,13 @@ class CreateEmployee extends React.Component {
               Fecha de fin
             </label>
             <div className='col-10'>
-              <input
-                onChange={this.handleChange}
+              <DatePicker
+                dateFormat='yyyy/MM/dd'
+                onChange={date => this.setEndDate(date)}
                 className='form-control'
-                type='text'
-                value={this.state.employee.endDate || ''}
                 id='endDate'
+                selected={this.state.employee.endDate}
+                withPortal
               />
             </div>
           </div>

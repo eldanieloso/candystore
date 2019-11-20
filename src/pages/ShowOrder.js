@@ -23,10 +23,10 @@ class ShowOrder extends React.Component {
   fetchData = async () => {
     this.setState({ loading: true, error: null })
     const { id } = this.props.match.params
-    let data = await axiosGraphQL.post('', { query: GET_ORDER(id) })
-    let order = data.data.data.orders[0]
-    this.setState({ loading: false, order })
     try {
+      let data = await axiosGraphQL.post('', { query: GET_ORDER(id) })
+      let order = data.data.data.orders[0]
+      this.setState({ loading: false, order })
     } catch (error) {
       this.setState({ loading: false, error })
     }

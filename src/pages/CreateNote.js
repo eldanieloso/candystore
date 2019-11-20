@@ -3,6 +3,9 @@ import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { CREATE_NOTE } from '../graphql/mutations'
 import { GET_CLIENTS, GET_EMPLOYEES, GET_PRODUCTS } from '../graphql/queries'
+import DatePicker from 'react-datepicker'
+
+import 'react-datepicker/dist/react-datepicker.css'
 
 class CreateNote extends React.Component {
   constructor (props) {
@@ -11,7 +14,7 @@ class CreateNote extends React.Component {
       loading: false,
       error: null,
       note: {
-        date: '',
+        date: new Date(),
         client: 1,
         employee: 1,
         product: 1,
@@ -100,6 +103,13 @@ class CreateNote extends React.Component {
     document.getElementById('section__name').innerHTML = 'Notas'
     document.getElementById('module__action').innerHTML = 'Crear nota'
   }
+
+  setDate (date) {
+    let newNote = { ...this.state.note }
+    newNote.date = date
+    this.setState({ note: newNote })
+  }
+
   render () {
     if (this.state.redirect) return <Redirect to='/notes' />
     if (this.state.loading === true) return 'Loading...'
@@ -115,12 +125,13 @@ class CreateNote extends React.Component {
               Fecha
             </label>
             <div className='col-10'>
-              <input
-                onChange={this.handleChange}
+              <DatePicker
+                dateFormat='yyyy/MM/dd'
+                onChange={date => this.setDate(date)}
                 className='form-control'
-                type='text'
-                value={this.state.note.date}
                 id='date'
+                selected={this.state.note.date}
+                withPortal
               />
             </div>
           </div>

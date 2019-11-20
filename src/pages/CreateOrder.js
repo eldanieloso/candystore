@@ -3,6 +3,9 @@ import { Link, Redirect } from 'react-router-dom'
 import axiosGraphQL from '../graphql/client'
 import { CREATE_ORDER } from '../graphql/mutations'
 import { GET_PROVIDERS, GET_PRODUCTS } from '../graphql/queries'
+import DatePicker from 'react-datepicker'
+
+import 'react-datepicker/dist/react-datepicker.css'
 
 class CreateOrder extends React.Component {
   constructor (props) {
@@ -12,7 +15,7 @@ class CreateOrder extends React.Component {
       error: null,
       order: {
         provider: 1,
-        createdAt: '',
+        createdAt: new Date(),
         product: 1,
         quantity: 1
       },
@@ -28,9 +31,9 @@ class CreateOrder extends React.Component {
     try {
       let data = await axiosGraphQL.post('', { query: GET_PROVIDERS })
       let providers = data.data.data.providers
-      let newNote = { ...this.state.note }
-      newNote.provider = providers[0].id
-      this.setState({ providers, note: newNote })
+      let newOrder = { ...this.state.order }
+      newOrder.provider = providers[0].id
+      this.setState({ providers, order: newOrder })
     } catch (error) {
       this.setState({ error: true })
     }
@@ -40,9 +43,9 @@ class CreateOrder extends React.Component {
     try {
       let data = await axiosGraphQL.post('', { query: GET_PRODUCTS })
       let products = data.data.data.products
-      let newNote = { ...this.state.note }
-      newNote.product = products[0].id
-      this.setState({ products, note: newNote })
+      let newOrder = { ...this.state.order }
+      newOrder.product = products[0].id
+      this.setState({ products, order: newOrder })
     } catch (error) {
       this.setState({ error: true })
     }
@@ -85,6 +88,12 @@ class CreateOrder extends React.Component {
     document.getElementById('module__action').innerHTML = 'Crear órden'
   }
 
+  setCreatedAt (date) {
+    let newOrder = { ...this.state.order }
+    newOrder.createdAt = date
+    this.setState({ order: newOrder })
+  }
+
   render () {
     if (this.state.redirect) return <Redirect to='/orders' />
     if (this.state.loading === true) return 'Loading...'
@@ -104,6 +113,7 @@ class CreateOrder extends React.Component {
                 onChange={this.handleChange}
                 className='form-control'
                 id='provider'
+                defaultValue={this.state.order.provider}
               >
                 {this.state.providers.map(provider => {
                   return (
@@ -120,12 +130,13 @@ class CreateOrder extends React.Component {
               Fecha de creación
             </label>
             <div className='col-10'>
-              <input
-                onChange={this.handleChange}
+              <DatePicker
+                dateFormat='yyyy/MM/dd'
+                onChange={date => this.setCreatedAt(date)}
                 className='form-control'
-                type='text'
-                value={this.state.order.createdAt}
                 id='createdAt'
+                selected={this.state.order.createdAt}
+                withPortal
               />
             </div>
           </div>
@@ -138,6 +149,7 @@ class CreateOrder extends React.Component {
                 onChange={this.handleChange}
                 className='form-control'
                 id='product'
+                defaultValue={this.state.order.product}
               >
                 {this.state.products.map(product => {
                   return (

@@ -7,6 +7,10 @@ import {
   GET_EMPLOYEE_TYPES
 } from '../graphql/queries'
 import { UPDATE_EMPLOYEE } from '../graphql/mutations'
+import timestampToDate from 'timestamp-to-date'
+import DatePicker from 'react-datepicker'
+
+import 'react-datepicker/dist/react-datepicker.css'
 
 class EditEmployee extends React.Component {
   constructor (props) {
@@ -81,11 +85,25 @@ class EditEmployee extends React.Component {
     let employee = data.data.data.employees[0]
     employee.schedule = employee.schedule.id
     employee.typeEmployee = employee.typeEmployee.id
+    employee.startDate = new Date(timestampToDate(employee.startDate, 'yyyy/MM/dd'))
+    employee.endDate = new Date(timestampToDate(employee.endDate, 'yyyy/MM/dd'))
     this.setState({ loading: false, employee })
     try {
     } catch (error) {
       this.setState({ loading: false, error })
     }
+  }
+
+  setStartDate (date) {
+    let newEmployee = { ...this.state.employee }
+    newEmployee.startDate = date
+    this.setState({ employee: newEmployee })
+  }
+
+  setEndDate (date) {
+    let newEmployee = { ...this.state.employee }
+    newEmployee.endDate = date
+    this.setState({ employee: newEmployee })
   }
 
   render () {
@@ -187,12 +205,13 @@ class EditEmployee extends React.Component {
               Fecha de inicio
             </label>
             <div className='col-10'>
-              <input
-                onChange={this.handleChange}
+              <DatePicker
+                dateFormat='yyyy/MM/dd'
+                onChange={date => this.setStartDate(date)}
                 className='form-control'
-                type='text'
-                value={this.state.employee.startDate}
                 id='startDate'
+                selected={this.state.employee.startDate}
+                withPortal
               />
             </div>
           </div>
@@ -201,12 +220,13 @@ class EditEmployee extends React.Component {
               Fecha de fin
             </label>
             <div className='col-10'>
-              <input
-                onChange={this.handleChange}
+              <DatePicker
+                dateFormat='yyyy/MM/dd'
+                onChange={date => this.setEndDate(date)}
                 className='form-control'
-                type='text'
-                value={this.state.employee.endDate || ''}
                 id='endDate'
+                selected={this.state.employee.endDate}
+                withPortal
               />
             </div>
           </div>
